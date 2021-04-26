@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello DeliversController!{% endblock %}
+
+{% block body %}
+   <div class="container">
+       <div class="row">
+           <div class="col-6">
+               <div class="jumbotron">
+                   <h1 class="display-3">STARBUCKS® BOOKS</h1>
+                   <h3 class="lead">Enjoying your drink has never been easier.</h3>
+                   <hr class="my-4">
+               </div>
+           </div>
+           <div class="col-6">
+               <div>
+                   <img src="{{ asset('image/StarbucksDelivers.png') }}" style="width: 600px;height: 380px;" class="mr-5">
+               </div>
+           </div>
+       </div>
+       <div class="row">
+           <div class="col-8">
+               <div>
+                   <h4 class="font-weight-bold mt-3">TASTE YOUR FAVORITE DRINK IN A FEW CLICKS</h4>
+                   <p>Starbucks® Delivers partners as well as the list of open lounges for take-out.</p>
+                   <div class="row">
+                       <div class="col-6">
+                           <div class="card mb-3">
+                               <h3 class="card-header">Starbucks® Delivers with Uber Eats</h3>
+                               <img src="{{ asset('image/UE_Logo.png') }}">
+                               <div class="card-body">
+                                   <p class="card-text">Allow yourself a moment of pleasure with your favorite drink delivered to your door. Find out which salon is closest to you!</p>
+                               </div>
+                               <div class="card-body">
+                                   <a href="https://www.ubereats.com/fr/brand/starbucks" class="btn btn-success">Order via UberEtats</a>
+                               </div>
+                           </div>
+                       </div>
+                       <div class="col-6">
+                           <div class="card mb-3">
+                               <h3 class="card-header">Starbucks® Delivers with Deliveroo</h3>
+                               <img src="{{ asset('image/new-logo-deliveroo.gif') }}">
+                               <div class="card-body">
+                                   <p class="card-text">Get your favorite Starbucks right at your doorstep with Deliveroo! Find out which salons deliver to you.</p>
+                               </div>
+                               <div class="card-body">
+                                   <a href="https://deliveroo.fr/fr/marques/starbucks" class="btn btn-success">Order via Deliveroo</a>
+                               </div>
+                           </div>
+                       </div>
+                   </div>
+               </div>
+           </div>
+       </div>
+       <div class="row">
+           <div class="col-6">
+               <div class="mt-3">
+                   <img src="{{ asset('image/CityWalks_Tile1_1.jpeg') }}" style="width: 735px; height: 400px;">
+               </div>
+               <div>
+                   <h3 class="font-weight-bold mt-3">
+                       WHILE WAITING TO FIND US, HERE IS THE LIST OF SHOWS WELCOMING YOU FOR TAKE-OUT SALE
+                   </h3>
+                   <p>Excited to see you again !</p>
+               </div>
+           </div>
+       </div>
+       
+
+   </div>
+{% endblock %}

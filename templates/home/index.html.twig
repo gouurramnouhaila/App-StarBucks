@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <img src="{{ asset('image/Home.jpeg') }}" style="width: 100%">
+                <div>
+                    <h3 class="mt-3">Spring full of color! Fruit, fruit and nothing but fruit to fill up with vitamins!</h3>
+                    <p>
+                        For this spring, color your days with the new range of Smoothies! Fill up on vitamins with our 3 new 100% fruit drinks.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-5">
+            <div class="col-6">
+                <div class="card mb-3">
+                    <img src="{{ asset('image/Order.jpeg') }}">
+                    <div class="card-body">
+                        <h3>Simplify your life with the Starbucks® France app</h3>
+                        <p class="card-text">Spoil yourself and enjoy free drinks by downloading our app.</p>
+                    </div>
+                    <div class="card-body">
+                        <a href="#" class="btn btn-success">Download the app</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="card mb-3">
+                    <img src="{{ asset('image/delivers_starbucks.jpeg') }}">
+                    <div class="card-body">
+                        <h3>Starbucks Delivers</h3>
+                        <p class="card-text">Have your favorite food and drink delivered right to your door.</p>
+                    </div>
+                    <div class="card-body">
+                        <a href="https://www.ubereats.com/fr/brand/starbucks" class="btn btn-success">Order on UberEats</a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

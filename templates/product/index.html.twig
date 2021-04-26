@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ProductController!{% endblock %}
+
+{% block body %}
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-dismissible alert-success">
+            <strong>Well done!</strong> {{ message }}.
+        </div>
+    {% endfor %}
+    <div class="container">
+        <div>
+            <div>
+                <a href="{{ path('app_product_new') }}" class="btn btn-secondary mb-3 mt-3">Create New</a>
+            </div>
+        </div>
+        <div class="row">
+            {% for product in products %}
+                <div class="col-md-4">
+                    <div class="card mb-4 box-shadow">
+                        <img class="card-img-top" src="{{asset(product.image)}}" alt="Card image cap">
+                        <div class="card-body">
+                            <p class="card-text">{{ product.description }}</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <a href="{{ path('app_product_edit',{id: product.id}) }}" class="btn btn-sm btn-outline-secondary">Edit</a>
+                                    <a href="#" class="btn btn-sm btn-outline-secondary">View</a>
+                                    <a href="{{ path('app_product_delete',{id: product.id}) }}" onclick="confirm('Are you sure ?')" class="btn btn-sm btn-outline-secondary">Delete</a>
+                                </div>
+                                <small class="text-muted">{{ product.createdAt | ago }}</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
