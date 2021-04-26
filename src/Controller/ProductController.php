@@ -15,7 +15,13 @@ use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
+ /**
+ * Require ROLE_ADMIN for *every* controller method in this class.
+ *
+ * @IsGranted("ROLE_ADMIN")
+ */
 class ProductController extends AbstractController
 {
     /**
@@ -53,16 +59,13 @@ class ProductController extends AbstractController
     /**
      * @Route("/products/new",name="app_product_new")
      */
-    public function newProduct(Request $request,UploaderHelper $uploaderHelper,ProductHandler $handler) {
-
+    public function newProduct(Request $request,ProductHandler $handler) {
 
         if($handler->handle($request,new Product(),ProductType::class)) {
-
 
             $this->addFlash('success', 'Yessss All Done !! Your Product Is Created ... ');
 
             return $this->redirectToRoute('app_product_index');
-
         }
 
         return $this->render('product/new.html.twig',[
@@ -90,7 +93,7 @@ class ProductController extends AbstractController
     /**
      * @Route("/products/{id}/edit",name="app_product_edit")
      */
-    public  function editProduct(int $id, Request $request,UploaderHelper $uploaderHelper,ProductHandler $handler) {
+    public  function editProduct(int $id, Request $request,ProductHandler $handler) {
         $product = $this->repository->findOneBy(['id' => $id]);
 
         if ($handler->handle($request,$product)) {
