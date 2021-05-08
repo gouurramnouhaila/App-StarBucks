@@ -61,22 +61,6 @@ class DrinkController extends AbstractController
     }
 
     /**
-     * @Route("/menu/drink/{id}/delete",name="app_drink_delete")
-     */
-    public function deleteDrink(int $id) {
-        $drink = $this->repository->findOneBy(['id' => $id]);
-
-        if(!$drink) {
-            throw $this->createNotFoundException('Not drink found for id '.$drink->getId());
-        }
-
-        $this->manager->remove($drink);
-        $this->manager->flush();
-
-        return $this->redirectToRoute('app_drink_index');
-    }
-
-    /**
      * @Route("/menu/drink/{id}/edit",name="app_drink_edit")
      */
     public function editDrink(int $id,Request $request) {
@@ -99,4 +83,22 @@ class DrinkController extends AbstractController
             'form' => $form->createView()
         ]);
     }
+
+    /**
+     * @Route("/menu/drink/{id}/delete",name="app_drink_delete")
+     */
+    public function deleteDrink(int $id) {
+        $drink = $this->repository->findOneBy(['id' => $id]);
+
+        if(!$drink) {
+            throw $this->createNotFoundException('Not drink found for id '.$drink->getId());
+        }
+
+        $this->manager->remove($drink);
+        $this->manager->flush();
+
+        return $this->redirectToRoute('app_drink_index');
+    }
+
+
 }

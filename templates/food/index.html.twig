@@ -23,7 +23,7 @@
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
                                     <a href="#" class="btn btn-sm btn-outline-secondary">View</a>
-                                    <a href="{{ path('app_drink_edit',{id: index.id}) }}" class="btn btn-sm btn-outline-secondary">Edit</a>
+                                    <a href="{{ path('app_food_edit',{id: index.id}) }}" class="btn btn-sm btn-outline-secondary">Edit</a>
                                     <a href="{{ path('app_food_delete',{id: index.id}) }}" onclick="confirm('Are you sure ?')" class="btn btn-sm btn-outline-secondary">Delete</a>
                                 </div>
                                 <small class="text-muted">{{ index.product.createdAt | ago }}</small>

@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Food;
 use App\Form\FoodType;
+use App\Handler\FoodHandler;
 use App\Repository\FoodRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -42,21 +44,14 @@ class FoodController extends AbstractController
     /**
      * @Route("/menu/food/new",name="app_food_new")
      */
-    public function newFood(Request $request) {
-        $form = $this->createForm(FoodType::class);
-        $form->handleRequest($request);
+    public function newFood(Request $request,FoodHandler $handler) {
 
-        if($form->isSubmitted() && $form->isValid()) {
-            $food = $form->getData();
-
-            $this->manager->persist($food);
-            $this->manager->flush();
-
+        if($handler->handle($request,new Food())) {
             return $this->redirectToRoute('app_food_index');
         }
 
         return $this->render('food/new.html.twig',[
-            'form' => $form->createView()
+            'form' => $handler->createView(),
         ]);
     }
 
@@ -79,15 +74,10 @@ class FoodController extends AbstractController
     /**
      * @Route("/menu/food/{id}/edit",name="app_food_edit")
      */
-    public function editFood(int $id,Request $request) {
+    public function editFood(int $id,Request $request,FoodHandler $handler) {
         $food = $this->repository->findOneBy(['id' => $id]);
 
-        $form = $this->createForm(FoodType::class,$food);
-        $form->handleRequest($request);
-
-        if($form->isSubmitted() && $form->isValid()) {
-            $this->manager->persist($food);
-            $this->manager->flush();
+        if($handler->handle($request,$food)) {
 
             $this->addFlash('success','Yessss All Done !! Your Food Product Updated ...');
 
@@ -96,7 +86,7 @@ class FoodController extends AbstractController
             ]);
         }
         return $this->render('food/edit.html.twig',[
-            'form' => $form->createView()
+            'form' => $handler->createView(),
         ]);
     }
 }

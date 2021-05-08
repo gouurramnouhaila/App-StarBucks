@@ -20,7 +20,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
  /**
  * Require ROLE_ADMIN for *every* controller method in this class.
  *
- * @IsGranted("ROLE_ADMIN")
+ * @IsGranted("ROLE_USER")
  */
 class ProductController extends AbstractController
 {
@@ -61,7 +61,7 @@ class ProductController extends AbstractController
      */
     public function newProduct(Request $request,ProductHandler $handler) {
 
-        if($handler->handle($request,new Product(),ProductType::class)) {
+        if($handler->handle($request,new Product())) {
 
             $this->addFlash('success', 'Yessss All Done !! Your Product Is Created ... ');
 
