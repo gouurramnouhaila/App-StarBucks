@@ -4,15 +4,28 @@
 namespace App\Handler;
 
 
+use App\Form\DrinkType;
+use Doctrine\ORM\EntityManagerInterface;
+
 class DrinkHandler extends AbstractHandler
 {
+
+    /**
+     * @var EntityManagerInterface
+     */
+    private $manager;
+
+    public function __construct(EntityManagerInterface $manager)
+    {
+        $this->manager = $manager;
+    }
 
     /**
      * @inheritDoc
      */
     protected function getFormType(): string
     {
-        // TODO: Implement getFormType() method.
+        return DrinkType::class;
     }
 
     /**
@@ -20,6 +33,7 @@ class DrinkHandler extends AbstractHandler
      */
     protected function process($data): void
     {
-        // TODO: Implement process() method.
+        $this->manager->persist($data);
+        $this->manager->flush();
     }
 }

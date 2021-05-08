@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Drink;
 use App\Form\DrinkType;
+use App\Handler\DrinkHandler;
 use App\Repository\DrinkRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -42,36 +44,25 @@ class DrinkController extends AbstractController
     /**
      * @Route("/menu/drink/new",name="app_drink_new")
      */
-    public function newDrink(Request $request) {
-        $form = $this->createForm(DrinkType::class);
-        $form->handleRequest($request);
+    public function newDrink(Request $request,DrinkHandler $handler) {
 
-        if($form->isSubmitted() && $form->isValid()) {
-            $drink = $form->getData();
-
-            $this->manager->persist($drink);
-            $this->manager->flush();
+        if($handler->handle($request,new Drink())) {
 
             return $this->redirectToRoute('app_drink_index');
         }
 
         return $this->render('drink/new.html.twig',[
-            'form' => $form->createView()
+            'form' => $handler->createView(),
         ]);
     }
 
     /**
      * @Route("/menu/drink/{id}/edit",name="app_drink_edit")
      */
-    public function editDrink(int $id,Request $request) {
+    public function editDrink(int $id,Request $request,DrinkHandler $handler) {
         $drink = $this->repository->findOneBy(['id' => $id]);
 
-        $form = $this->createForm(DrinkType::class,$drink);
-        $form->handleRequest($request);
-
-        if($form->isSubmitted() && $form->isValid()) {
-            $this->manager->persist($drink);
-            $this->manager->flush();
+        if($handler->handle($request,$drink)) {
 
             $this->addFlash('success','Yessss All Done !! Your Drink Product Updated ... ');
 
@@ -80,7 +71,7 @@ class DrinkController extends AbstractController
             ]);
         }
         return $this->render('drink/edit.html.twig',[
-            'form' => $form->createView()
+            'form' => $handler->createView(),
         ]);
     }
 
