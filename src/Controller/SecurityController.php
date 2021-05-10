@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\UserType;
+use App\Handler\UserHandler;
 use App\Security\FormLoginAuthenticator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -46,20 +47,13 @@ class SecurityController extends AbstractController
     /**
      * @Route("/account/create",name="app_account_create")
      */
-    public function register(Request $request,UserPasswordEncoderInterface $encoder,GuardAuthenticatorHandler $handler,FormLoginAuthenticator $authenticator) {
-        $form = $this->createForm(UserType::class);
-        $form->handleRequest($request);
+    public function register(Request $request,GuardAuthenticatorHandler $handler,FormLoginAuthenticator $authenticator,UserHandler $userHandler) {
 
-        if($form->isSubmitted() && $form->isValid()) {
-            /** @var $user User */
-            $user = $form->getData();
+        $user = new User();
 
-            $user->setPassword($encoder->encodePassword($user,$user->getPassword()));
+        if($userHandler->handle($request,$user)) {
 
-            $this->manager->persist($user);
-            $this->manager->flush();
-
-            return $handler->authenticateUserAndHandleSuccess(
+           return $handler->authenticateUserAndHandleSuccess(
                 $user,
                 $request,
                 $authenticator,
@@ -69,7 +63,7 @@ class SecurityController extends AbstractController
         }
 
         return $this->render('security/user/register.html.twig',[
-            'form' => $form->createView()
+            'form' => $userHandler->createView()
         ]);
     }
 }

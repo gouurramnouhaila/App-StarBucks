@@ -53,9 +53,15 @@
                     <a class="nav-link" href="#">CARRIERE</a>
                 </li>
             </ul>
-            <form class="form-inline my-2 my-lg-0">
-                <a class="btn btn-light my-2 my-sm-0" href="{{ path('app_login') }}">Log in</a>
-            </form>
+            {% if app.user %}
+                <form class="form-inline my-2 my-lg-0">
+                    <a class="btn btn-light my-2 my-sm-0" href="{{ path('app_login') }}">Log out</a>
+                </form>
+            {% else %}
+                <form class="form-inline my-2 my-lg-0">
+                    <a class="btn btn-light my-2 my-sm-0" href="{{ path('app_login') }}">Log in</a>
+                </form>
+            {% endif %}
             <form class="form-inline ml-4">
                 <a class="btn btn-light my-2 my-sm-0" href="{{ path('app_account_create') }}">Join now</a>
             </form>
